@@ -20,9 +20,15 @@ namespace trader
     /// </summary>
     public partial class RegisterPage : Page
     {
+
         public RegisterPage()
         {
             InitializeComponent();
+        }
+
+        private void RegButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
