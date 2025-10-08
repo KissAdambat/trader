@@ -20,7 +20,8 @@ namespace trader
     /// </summary>
     public partial class RegisterPage : Page
     {
-
+        private readonly DataBaseStatemenst db = new DataBaseStatemenst();
+        Connect conn = new Connect();
         public RegisterPage()
         {
             InitializeComponent();
@@ -28,7 +29,22 @@ namespace trader
 
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (PasswordBox.Password == PasswordBoxAgain.Password)
+            {
+                var result = db.AddNewUser(new
+                {
+                    username = UsernameTextBox.Text,
+                    fullname = FullName.Text,
+                    password = PasswordBox.Password,
+                    salt = "",
+                    email = Email.Text
+                });
+                MessageBox.Show(result.ToString());
+            }
+            else
+            {
+                MessageBox.Show("A jelszavak nem egyeznek.");
+            }
         }
     }
 }

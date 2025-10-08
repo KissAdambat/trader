@@ -19,17 +19,19 @@ namespace trader
 
             MySqlCommand cmd = new MySqlCommand(sql, conn.Connection);
 
-            cmd.Parameters.AddWithValue("@username", user);
-            cmd.Parameters.AddWithValue("@fullname", user);
-            cmd.Parameters.AddWithValue("@password", user);
-            cmd.Parameters.AddWithValue("@salt", user);
-            cmd.Parameters.AddWithValue("@email", user);
+            var newUser = user.GetType().GetProperties();
+
+            cmd.Parameters.AddWithValue("@username", newUser[0].GetValue(user));
+            cmd.Parameters.AddWithValue("@fullname", newUser[1].GetValue(user));
+            cmd.Parameters.AddWithValue("@password", newUser[2].GetValue(user));
+            cmd.Parameters.AddWithValue("@salt", newUser[3].GetValue(user));
+            cmd.Parameters.AddWithValue("@email", newUser[4].GetValue(user));
 
             cmd.ExecuteNonQuery();
 
             conn.Connection.Close();
 
-            return null;
+            return new { message = "Sikeres hozzáadás."};
         }
     }
 }

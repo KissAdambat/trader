@@ -126,7 +126,8 @@
                 Background="Blue"
                 Height="50"
                 Width="120"
-                HorizontalAlignment="Left" Click="RegButton_Click"
+                HorizontalAlignment="Left"
+                Click="RegButton_Click"
                 />
         </StackPanel>
     </Grid>
