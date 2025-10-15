@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,20 @@ namespace trader
             conn.Connection.Close();
 
             return new { message = "Sikeres hozzáadás."};
+        }
+        public object LoginUser(object user)
+        {
+            conn.Connection.Open();
+            string sql = "SELECT * FROM `users` WHERE `UserName` = @username AND `Password` = @password";
+            MySqlCommand cmd = new MySqlCommand(sql, conn.Connection);
+            var logUser = user.GetType().GetProperties();
+            cmd.Parameters.AddWithValue("@username", logUser[0].GetValue(user));
+            cmd.Parameters.AddWithValue("@password", logUser[1].GetValue(user));
+            MySqlDataReader reader = cmd.ExecuteReader();
+            object IsRegistered = reader.Read() ? new { message = "Regisztrált"}:new {message = "Nem regisztrált" };
+            conn.Connection.Close();
+            conn.Connection.Close();
+            return IsRegistered;
         }
     }
 }
