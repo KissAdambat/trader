@@ -21,9 +21,11 @@ namespace trader
     public partial class Login : Page
     {
         private readonly DataBaseStatemenst DataBaseStatemenst = new DataBaseStatemenst();
-        public Login()
+        private readonly MainWindow mainWindow;
+        public Login(MainWindow mainWindow)
         {
             InitializeComponent();
+            this.mainWindow = mainWindow;
         }
 
         private void LogButtonClick(object sender, RoutedEventArgs e)
@@ -34,6 +36,11 @@ namespace trader
                 password = LoginPasswordBox.Password
             };
             MessageBox.Show(DataBaseStatemenst.LoginUser(user).ToString());
+        }
+
+        private void RegisterLink_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.StartWindow.Navigate(new RegisterPage());
         }
     }
 }

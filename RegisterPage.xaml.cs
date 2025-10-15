@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,6 +22,7 @@ namespace trader
     public partial class RegisterPage : Page
     {
         private readonly DataBaseStatemenst db = new DataBaseStatemenst();
+        private readonly MainWindow mainWindow;
         Connect conn = new Connect();
         public RegisterPage()
         {
@@ -40,6 +42,7 @@ namespace trader
                     email = Email.Text
                 });
                 MessageBox.Show(result.ToString());
+                mainWindow.StartWindow.Navigate(new Login(mainWindow));
             }
             else
             {

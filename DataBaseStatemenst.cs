@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -46,6 +47,18 @@ namespace trader
             object IsRegistered = reader.Read() ? new { message = "Regisztrált"}:new {message = "Nem regisztrált" };
             conn.Connection.Close();
             return IsRegistered;
+        }
+
+        public DataView GetAllUsers()
+        {
+            conn.Connection.Open();
+            string sql = "SELECT * FROM `users`";
+            MySqlCommand cmd = new MySqlCommand(sql, conn.Connection);
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            conn.Connection.Close();
+            return dt.DefaultView;
         }
     }
 }
