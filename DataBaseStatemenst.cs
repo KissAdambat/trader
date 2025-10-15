@@ -45,7 +45,6 @@ namespace trader
             MySqlDataReader reader = cmd.ExecuteReader();
             object IsRegistered = reader.Read() ? new { message = "Regisztrált"}:new {message = "Nem regisztrált" };
             conn.Connection.Close();
-            conn.Connection.Close();
             return IsRegistered;
         }
     }

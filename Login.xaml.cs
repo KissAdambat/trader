@@ -20,6 +20,7 @@ namespace trader
     /// </summary>
     public partial class Login : Page
     {
+        private readonly DataBaseStatemenst DataBaseStatemenst = new DataBaseStatemenst();
         public Login()
         {
             InitializeComponent();
@@ -27,7 +28,12 @@ namespace trader
 
         private void LogButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("╰(*°▽°*)╯");
+            var user = new
+            {
+                username = UsernameLoginTextBox.Text,
+                password = LoginPasswordBox.Password
+            };
+            MessageBox.Show(DataBaseStatemenst.LoginUser(user).ToString());
         }
     }
 }
