@@ -50,3 +50,5 @@ C:\Users\Kissa\source\repos\trader\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\Kissa\source\repos\trader\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\Kissa\source\repos\trader\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Kissa\source\repos\trader\obj\Debug\trader.csproj.Up2Date
+C:\Users\Kissa\source\repos\trader\obj\Debug\Login.g.cs
+C:\Users\Kissa\source\repos\trader\obj\Debug\Login.baml
