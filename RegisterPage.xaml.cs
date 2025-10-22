@@ -24,9 +24,10 @@ namespace trader
         private readonly DataBaseStatemenst db = new DataBaseStatemenst();
         private readonly MainWindow mainWindow;
         Connect conn = new Connect();
-        public RegisterPage()
+        public RegisterPage(MainWindow mainWindow)
         {
             InitializeComponent();
+            this.mainWindow = mainWindow;
         }
 
         private void RegButton_Click(object sender, RoutedEventArgs e)

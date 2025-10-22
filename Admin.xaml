@@ -10,9 +10,11 @@
 
     <Grid>
         <DataGrid
-            x:Name="UsersDataGrid"
+            x:Name="UsersDataGrid" Margin="0,0,0,34"
             >
             
         </DataGrid>
+        <Button Content="Delete" HorizontalAlignment="Left" Margin="475,416,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Update" HorizontalAlignment="Left" Margin="284,416,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
     </Grid>
 </Page>

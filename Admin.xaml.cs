@@ -29,5 +29,32 @@ namespace trader
             InitializeComponent();
             UsersDataGrid.ItemsSource = DataBaseStatemenst.GetAllUsers();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string sor = UsersDataGrid.SelectedItem.ToString();
+            if(string.IsNullOrEmpty(sor))
+            {
+                MessageBox.Show("Nincs kijelölve felhasználó.");
+                return;
+            }
+            int userId = int.Parse(sor.Split(',')[0].Split('=')[1].Trim());
+            DataBaseStatemenst.DeleteUser(userId);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+            string sor = UsersDataGrid.SelectedItem.ToString();
+            if (string.IsNullOrEmpty(sor))
+            {
+                MessageBox.Show("Nincs kijelölve felhasználó.");
+                return;
+            }
+            int userId = int.Parse(sor.Split(',')[0].Split('=')[1].Trim());
+            string fullName = sor.Split(',')[2].Split('=')[1].Trim();
+            string email = sor.Split(',')[4].Split('=')[1].Trim();
+            DataBaseStatemenst.UserEdit(userId,fullName,email);
+        }
     }
 }

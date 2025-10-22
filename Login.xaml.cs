@@ -40,7 +40,7 @@ namespace trader
 
         private void RegisterLink_Click(object sender, RoutedEventArgs e)
         {
-            mainWindow.StartWindow.Navigate(new RegisterPage());
+            mainWindow.StartWindow.Navigate(new RegisterPage(mainWindow));
         }
     }
 }
