@@ -18,17 +18,19 @@ namespace trader
         public object AddNewUser(object user)
         {
             conn.Connection.Open();
+            var newUser = user.GetType().GetProperties();
+            string salt = GenerateSalt();
+            string hashedPassword = ComputeHmacSha256((string)newUser[2].GetValue(user), salt);
 
             string sql = "INSERT INTO `users`(`UserName`, `FullName`, `Password`, `Salt`, `Email`) VALUES (@username,@fullname,@password,@salt,@email)";
 
             MySqlCommand cmd = new MySqlCommand(sql, conn.Connection);
 
-            var newUser = user.GetType().GetProperties();
 
             cmd.Parameters.AddWithValue("@username", newUser[0].GetValue(user));
             cmd.Parameters.AddWithValue("@fullname", newUser[1].GetValue(user));
-            cmd.Parameters.AddWithValue("@password", newUser[2].GetValue(user));
-            cmd.Parameters.AddWithValue("@salt", newUser[3].GetValue(user));
+            cmd.Parameters.AddWithValue("@password", hashedPassword);
+            cmd.Parameters.AddWithValue("@salt", salt);
             cmd.Parameters.AddWithValue("@email", newUser[4].GetValue(user));
 
             cmd.ExecuteNonQuery();
