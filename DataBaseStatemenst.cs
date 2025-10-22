@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,14 +53,39 @@ namespace trader
 
         public DataView GetAllUsers()
         {
-            conn.Connection.Open();
-            string sql = "SELECT * FROM `users`";
-            MySqlCommand cmd = new MySqlCommand(sql, conn.Connection);
-            MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            conn.Connection.Close();
-            return dt.DefaultView;
+            try
+            {
+                conn.Connection.Open();
+                string sql = "SELECT * FROM `users`";
+                MySqlCommand cmd = new MySqlCommand(sql, conn.Connection);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                conn.Connection.Close();
+                return dt.DefaultView;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+        }
+        public string GenerateSalt()
+        {
+            byte[] saltBytes = new byte[16];
+            using (var rnd = RandomNumberGenerator.Create())
+            {
+                rnd.GetBytes(saltBytes);
+            }
+            return Convert.ToBase64String(saltBytes);
+        }
+        public string ComputeHmacSha256(string password, string salt)
+        {
+            using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(salt)))
+            {
+                byte[] hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return Convert.ToBase64String(hash);
+            }
         }
     }
 }
